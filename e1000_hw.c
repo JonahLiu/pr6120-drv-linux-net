@@ -278,6 +278,7 @@ s32 e1000_set_mac_type(struct e1000_hw *hw)
 	case E1000_DEV_ID_82540EP:
 	case E1000_DEV_ID_82540EP_LOM:
 	case E1000_DEV_ID_82540EP_LP:
+	case E1000_DEV_ID_PR6120:
 		hw->mac_type = e1000_82540;
 		break;
 	case E1000_DEV_ID_82545EM_COPPER:
@@ -3201,6 +3202,9 @@ static s32 e1000_detect_gig_phy(struct e1000_hw *hw)
 	case e1000_82546:
 	case e1000_82546_rev_3:
 		if (hw->phy_id == M88E1011_I_PHY_ID)
+			match = true;
+                /* for PR6120 */
+                if (hw->phy_id == M88E1111_I_PHY_ID)
 			match = true;
 		break;
 	case e1000_ce4100:

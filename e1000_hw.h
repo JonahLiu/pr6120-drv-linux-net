@@ -444,6 +444,8 @@ void e1000_io_write(struct e1000_hw *hw, unsigned long port, u32 value);
 #define E1000_DEV_ID_82547EI_MOBILE      0x101A
 #define E1000_DEV_ID_82546GB_QUAD_COPPER_KSP3 0x10B5
 #define E1000_DEV_ID_INTEL_CE4100_GBE    0x2E6E
+#define PCI_VENDOR_ID_PR6120             0x0706
+#define E1000_DEV_ID_PR6120              0x3b00
 
 #define NODE_ADDRESS_SIZE 6
 

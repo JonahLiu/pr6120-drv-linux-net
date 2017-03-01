@@ -31,8 +31,8 @@
 #
 ifneq ($(KERNELRELEASE),)
 
-obj-m += e1000_dev.o
-e1000_dev-objs := e1000_main.o e1000_hw.o e1000_ethtool.o e1000_param.o
+obj-m += pr6120_net.o
+pr6120_net-objs := e1000_main.o e1000_hw.o e1000_ethtool.o e1000_param.o
 
 else
 
