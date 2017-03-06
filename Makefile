@@ -45,4 +45,9 @@ default:
 
 clean:
 	rm *.o *.ko *.mod.c modules.order Module.symvers
+
+load: default
+	sudo insmod pr6120_net.ko
+unload: 
+	sudo rmmod pr6120_net
 endif

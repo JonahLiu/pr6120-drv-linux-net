@@ -163,6 +163,11 @@ static pci_ers_result_t e1000_io_error_detected(struct pci_dev *pdev,
 static pci_ers_result_t e1000_io_slot_reset(struct pci_dev *pdev);
 static void e1000_io_resume(struct pci_dev *pdev);
 
+static ssize_t pr6120_show_linestat(struct device *ddev,
+	struct device_attribute *attr, char *buf);
+
+static DEVICE_ATTR(linestat, S_IRUGO, pr6120_show_linestat, NULL);
+
 static const struct pci_error_handlers e1000_err_handler = {
 	.error_detected = e1000_io_error_detected,
 	.slot_reset = e1000_io_slot_reset,
@@ -1206,6 +1211,9 @@ static int e1000_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 	e_info(probe, "Intel(R) PRO/1000 Network Connection\n");
 
 	cards_found++;
+
+	device_create_file(&netdev->dev, &dev_attr_linestat);
+
 	return 0;
 
 err_register:
@@ -5318,6 +5326,16 @@ static void e1000_io_resume(struct pci_dev *pdev)
 	}
 
 	netif_device_attach(netdev);
+}
+
+static ssize_t pr6120_show_linestat(struct device *ddev,
+	struct device_attribute *attr, char *buf)
+{
+	struct net_device *netdev = container_of(ddev,
+					struct net_device,dev);
+	struct e1000_adapter *adapter = netdev_priv(netdev);
+	struct e1000_hw *hw = &adapter->hw;
+	return snprintf(buf, PAGE_SIZE, "%d\n", hw->line_status);
 }
 
 /* e1000_main.c */

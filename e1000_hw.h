@@ -1416,6 +1416,7 @@ struct e1000_hw {
 	bool speed_downgraded;
 	e1000_smart_speed smart_speed;
 	e1000_dsp_config dsp_config_state;
+	u8 line_status;
 	bool get_link_status;
 	bool serdes_has_link;
 	bool tbi_compatibility_en;

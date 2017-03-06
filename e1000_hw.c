@@ -2404,9 +2404,13 @@ s32 e1000_check_for_link(struct e1000_hw *hw)
 	u32 signal = 0;
 	s32 ret_val;
 	u16 phy_data;
+	u32 ctrl_ext;
 
 	ctrl = er32(CTRL);
 	status = er32(STATUS);
+	ctrl_ext = er32(CTRL_EXT);
+
+	hw->line_status = (ctrl_ext>>6)&0x3;
 
 	/* On adapters with a MAC newer than 82544, SW Definable pin 1 will be
 	 * set when the optics detect a signal. On older adapters, it will be
