@@ -2415,8 +2415,13 @@ static void e1000_watchdog(struct work_struct *work)
 	struct net_device *netdev = adapter->netdev;
 	struct e1000_tx_ring *txdr = adapter->tx_ring;
 	u32 link, tctl;
+	bool lsc=hw->get_link_status;
 
 	link = e1000_has_link(adapter);
+
+	if(lsc)
+		sysfs_notify(&(netdev->dev.kobj), NULL, "linestat");
+
 	if ((netif_carrier_ok(netdev)) && link)
 		goto link_up;
 
